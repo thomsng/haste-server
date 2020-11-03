@@ -33,7 +33,10 @@
   },
 
   "storage": {
-    "type": "file"
+    "type": "redis",
+    "host": "localhost",
+    "port": 6379,
+    "db": 2
   },
 
   "documents": {

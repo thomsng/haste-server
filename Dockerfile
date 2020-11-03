@@ -9,16 +9,11 @@ WORKDIR /usr/src/app
 
 COPY --chown=node:node . . 
 
-RUN npm install && \
-    npm install redis@0.8.1 && \
-    npm install pg@4.1.1 && \
-    npm install memcached@2.2.2 && \
-    npm install aws-sdk@2.738.0 && \
-    npm install rethinkdbdash@2.3.31
+RUN npm install
 
-ENV STORAGE_TYPE=memcached \
+ENV STORAGE_TYPE=redis \
     STORAGE_HOST=127.0.0.1 \
-    STORAGE_PORT=11211\
+    STORAGE_PORT=6379\
     STORAGE_EXPIRE_SECONDS=2592000\
     STORAGE_DB=2 \
     STORAGE_AWS_BUCKET= \
