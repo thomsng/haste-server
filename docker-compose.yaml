@@ -2,18 +2,27 @@ version: '3.0'
 services:
   haste-server:
     build: .
+    container_name: paste
     networks:
-      - db-network
+      - nginx
+      - haste-network
     environment:
-      - STORAGE_TYPE=memcached
-      - STORAGE_HOST=memcached
-      - STORAGE_PORT=11211
+      - STORAGE_TYPE=redis
+      - STORAGE_HOST=haste-redis
+      - STORAGE_PORT=6379
     ports:
       - 7777:7777
-  memcached:
-    image: memcached:latest
+  haste-redis:
+    image: redis:latest
+    volumes:
+      - haste:/redis
     networks:
-      - db-network
+      - haste-network
 
+volumes:
+  haste:
 networks:
-  db-network:
+  haste-network:
+  nginx:
+    external: true
+    name: nginx

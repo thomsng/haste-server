@@ -9,7 +9,7 @@ WORKDIR /usr/src/app
 
 COPY --chown=node:node . . 
 
-RUN npm install
+RUN yarn install
 
 ENV STORAGE_TYPE=redis \
     STORAGE_HOST=127.0.0.1 \
@@ -54,5 +54,5 @@ STOPSIGNAL SIGINT
 ENTRYPOINT [ "bash", "docker-entrypoint.sh" ]
 
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s \
-    --retries=3 CMD [ "curl" , "-f" "localhost:${PORT}", "||", "exit", "1"]
+    --retries=3 CMD curl -f ${HOST}:${PORT} || exit 1
 CMD ["npm", "start"]
